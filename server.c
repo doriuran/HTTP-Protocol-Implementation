@@ -78,8 +78,8 @@ int connetToServer(int port)
 {
     int welcome_socket = 0;
     struct sockaddr_in serv_addr;
-    struct sockaddr cil_addr;
-    socklen_t clilen;
+    //struct sockaddr cil_addr;
+    //socklen_t clilen;
     welcome_socket = socket(AF_INET, SOCK_STREAM, 0);
     if (welcome_socket < 0)
     {
@@ -209,7 +209,7 @@ char *checkPermissions(int new_sockfd, char *path)
     int sum = 0;
     char *temp_last_path;
     char *path_token;
-    int flag_singal_char = 0;
+    //int flag_singal_char = 0;
     if (strcmp(path, "/") == 0)
     {
         temp_last_path = malloc(sizeof(char) + 1);
@@ -418,7 +418,7 @@ void readFromFile(int new_sockfd, char *tempPr, int file_size)
         return;
     }
     int rc = 0;
-    int totalRec = 0;
+    //int totalRec = 0;
     unsigned char *response = malloc(sizeof(char) * (file_size));
     memset(response, 0, (file_size));
     rc = read(fd, response, file_size);
@@ -486,7 +486,7 @@ unsigned char *makeDir(int new_sockfd, char *tempPr)
         return NULL;
     }
     struct dirent *dir;
-    int bool_f = 0;
+    //int bool_f = 0;
 
     DIR *d = opendir(tempPr);
     if (d == NULL)
@@ -605,7 +605,7 @@ int handleClient(void *sockfd)
 {
     int new_sockfd = *((int *)sockfd);
     char buf_read[BUFREAD];
-    char *response = "";
+    //char *response = "";
     if (read(new_sockfd, buf_read, BUFREAD) < 0)
     {
         error(new_sockfd, 404, NULL);
@@ -741,6 +741,10 @@ int handleClient(void *sockfd)
 
                         int file_size = fs.st_size;
                         int check_writeen = makeRegRes(new_sockfd, tempPr, file_size, 0);
+                        if (check_writeen == 0){
+                            //err 
+                            perror("Err init the fileds\n");
+                        }
                         readFromFile(new_sockfd, tempPr, file_size);
 
                         close(new_sockfd);
@@ -761,6 +765,10 @@ int handleClient(void *sockfd)
                     char *read_dir = makeDir(new_sockfd, temp_last_path);
                     int total_len = strlen(read_dir);
                     int check = makeRegRes(new_sockfd, temp_last_path, total_len, 1);
+                    if (check == 0){
+                            //err 
+                            perror("Err init the fileds\n");
+                    }
                     free(temp_last_path);
                     int ws = write(new_sockfd, read_dir, total_len);
                     if (ws == -1)
@@ -805,6 +813,10 @@ int handleClient(void *sockfd)
         //got pri already
         int file_size = fs.st_size;
         int check_writeen = makeRegRes(new_sockfd, temp_last_path, file_size, 0);
+        if (check_writeen == 0){
+            //err 
+            perror("Err init the fileds\n");
+        }
         readFromFile(new_sockfd, temp_last_path, file_size);
         close(new_sockfd);
         free(path);
