@@ -2,7 +2,7 @@ README
 Name:Dor Iuran
 
 
-Exercise 3 - Server Http
+Server Http
 
 Description 
 
@@ -11,7 +11,7 @@ Program files:
 server.c - Parse the string, bulding conenction to the server(welcome socket) ,waiting for clients(suppurting threads) ,print the response to the client.
 threadpool.c - the threads creator, all function are generic and will work as a outside libary.
 
-funcation:(server.c)
+Function:(server.c)
 
 usageError- Error defult message to the screen.
 get_mime_type - finding the coorect type for the server , null if didnt find.
@@ -25,7 +25,7 @@ handleClient - main function for handling all the requset's ,it will deiced whic
 main - Creating the welcome socket , creating the thredpool , callacting all clients requset's.
 
 
-funcation:(threadpool.c)
+Function:(threadpool.c)
 create_threadpool- Creating the pool by value that the main libary provides.
 dispatch - Sender of the threds .reponsible of mange the threads.
 do_work - the fucnion that need to be done by the main libary.
